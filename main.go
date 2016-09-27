@@ -80,13 +80,13 @@ func track(response http.ResponseWriter, request *http.Request){
 
     buffer := new(bytes.Buffer)
     if err := jpeg.Encode(buffer, img, nil); err != nil {
-            log.Println("unable to encode image.")
+        log.Println("unable to encode image.")
     }
 
     response.Header().Set("Content-Type", "image/jpeg")
     response.Header().Set("Content-Length", strconv.Itoa(len(buffer.Bytes())))
     if _, err := response.Write(buffer.Bytes()); err != nil {
-            log.Println("unable to write image.")
+        log.Println("unable to write image.")
     }
 
     go insertTracked(trackID, request.Header.Get("User-Agent"))
