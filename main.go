@@ -5,6 +5,7 @@ import (
     "log"
     "io"
     "encoding/json"
+    // "net"
     "net/http"
     "bytes"
     "image"
@@ -89,6 +90,9 @@ func track(response http.ResponseWriter, request *http.Request){
         log.Println("unable to write image.")
     }
 
+    // ip, _, _ := net.SplitHostPort(request.RemoteAddr)
+    // log.Println(ip, "AA")
+    log.Println(request.Header.Get("X-Forwarded-For") )
     go insertTracked(trackID, request.Header.Get("User-Agent"))
 }
 
