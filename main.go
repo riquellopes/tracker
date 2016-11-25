@@ -3,7 +3,6 @@ package main
 import (
     "time"
     "log"
-    "io"
     "encoding/json"
     // "net"
     "net/http"
@@ -65,10 +64,6 @@ func insertTracked(trackID string, userAgent string){
     }
 }
 
-func index(response http.ResponseWriter, request *http.Request){
-    io.WriteString(response, "Home Tracker")
-}
-
 func track(response http.ResponseWriter, request *http.Request){
     vars := mux.Vars(request)
     trackID := vars["track_id"]
@@ -121,7 +116,6 @@ func main(){
     // Instance mux route
     route := mux.NewRouter()
 
-    route.HandleFunc("/", index).Methods("GET")
     route.HandleFunc("/{track_id}.jpg", track).Methods("GET")
     route.HandleFunc("/add", addTrack).Methods("POST")
 
